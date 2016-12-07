@@ -2,38 +2,50 @@ package launch;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.*;
 import javax.swing.*;
+import java.io.*;
+import javax.imageio.*;
 
+/**
+ *
+ * @author jariv
+ */
 public class Launch extends JPanel implements ActionListener {
 
     JLabel picture;
 
-    public Launch() {
+    Launch() {
         super(new BorderLayout());
 
         String[] missileStrings = {"Bird", "Cat", "Dog", "Rabbit", "Pig"};
 
-        //Create the combo box, select the item at index 4.
-        //Indices start at 0, so 4 specifies the pig.
+        //Create the combo box
         JComboBox missileList = new JComboBox(missileStrings);
         missileList.setSelectedIndex(0);
         missileList.addActionListener(this);
+        
+        JButton fire = new JButton();
 
         //Set up the picture.
         picture = new JLabel();
         picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
         picture.setHorizontalAlignment(JLabel.CENTER);
-        updateLabel(missileStrings[missileList.getSelectedIndex()]);
+        //updateLabel(missileStrings[missileList.getSelectedIndex()]);
         picture.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        picture.setToolTipText("World map");
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("./img/worldMap.jpg"));
+        } catch (Exception e) {
+        }
+        picture.setIcon(new ImageIcon(image));
 
-        //The preferred size is hard-coded to be the width of the
-        //widest image and the height of the tallest image + the border.
-        //A real program would compute this.
-        picture.setPreferredSize(new Dimension(177, 122 + 10));
+        picture.setPreferredSize(new Dimension(1544, 777 + 10));
 
-        //Lay out the demo.
         add(missileList, BorderLayout.PAGE_START);
-        add(picture, BorderLayout.PAGE_END);
+        add(picture, BorderLayout.CENTER);
+        add(fire,BorderLayout.PAGE_END);
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     }
 
@@ -42,32 +54,7 @@ public class Launch extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         JComboBox cb = (JComboBox) e.getSource();
-        String petName = (String) cb.getSelectedItem();
-        updateLabel(petName);
-    }
-
-    protected void updateLabel(String name) {
-        ImageIcon icon = createImageIcon("images/" + name + ".gif");
-        picture.setIcon(icon);
-        picture.setToolTipText("A drawing of a " + name.toLowerCase());
-        if (icon != null) {
-            picture.setText(null);
-        } else {
-            picture.setText("Image not found");
-        }
-    }
-
-    /**
-     * Returns an ImageIcon, or null if the path was invalid.
-     */
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = Launch.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
+        String missile = (String) cb.getSelectedItem();
     }
 
     /**
