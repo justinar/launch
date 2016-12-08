@@ -20,10 +20,10 @@ public class Launch extends JPanel implements ActionListener {
     Launch() {
         super(new BorderLayout());
         
-        String[] missileStrings = {"Bird", "Cat", "Dog", "Rabbit", "Pig"};
-        String[] countryStrings = {"Bird", "Cat", "Dog", "Rabbit", "Pig"};
+        String[] missileStrings = {"Big", "Small", "Tiny", "Giant", "You"};
+        String[] countryStrings = {"USA", "Russia", "France", "Cuba", "Italy"};
 
-        //Create the combo box for missiles
+        //Create the combo box for countries
         JComboBox countryList = new JComboBox(countryStrings);
         countryList.setSelectedIndex(0);
         countryList.addActionListener(this);
@@ -57,8 +57,9 @@ public class Launch extends JPanel implements ActionListener {
         
         picture.setPreferredSize(new Dimension(1544, 777 + 10));
         
-        butt.add(countryList, BorderLayout.WEST);
-        butt.add(missileList, BorderLayout.EAST);
+        butt.setLayout(new FlowLayout());
+        butt.add(countryList);
+        butt.add(missileList);
         
         add(butt, BorderLayout.PAGE_START);
         add(picture, BorderLayout.CENTER);
