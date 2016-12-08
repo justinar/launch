@@ -15,13 +15,20 @@ import javax.swing.border.*;
 public class Launch extends JPanel implements ActionListener {
     
     JLabel picture;
+    JPanel butt;
     
     Launch() {
         super(new BorderLayout());
         
         String[] missileStrings = {"Bird", "Cat", "Dog", "Rabbit", "Pig"};
+        String[] countryStrings = {"Bird", "Cat", "Dog", "Rabbit", "Pig"};
 
-        //Create the combo box
+        //Create the combo box for missiles
+        JComboBox countryList = new JComboBox(countryStrings);
+        countryList.setSelectedIndex(0);
+        countryList.addActionListener(this);
+
+        //Create the combo box for missiles
         JComboBox missileList = new JComboBox(missileStrings);
         missileList.setSelectedIndex(0);
         missileList.addActionListener(this);
@@ -32,6 +39,8 @@ public class Launch extends JPanel implements ActionListener {
         fire.setForeground(Color.white);
         fire.setFont(new Font("Serif",Font.BOLD,24));
         //fire.setBorder(new LineBoarder());
+        //Set combo box set
+        butt = new JPanel();
         //Set up the picture.
         picture = new JLabel();
         picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
@@ -48,7 +57,10 @@ public class Launch extends JPanel implements ActionListener {
         
         picture.setPreferredSize(new Dimension(1544, 777 + 10));
         
-        add(missileList, BorderLayout.PAGE_START);
+        butt.add(countryList, BorderLayout.WEST);
+        butt.add(missileList, BorderLayout.EAST);
+        
+        add(butt, BorderLayout.PAGE_START);
         add(picture, BorderLayout.CENTER);
         add(fire, BorderLayout.PAGE_END);
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
