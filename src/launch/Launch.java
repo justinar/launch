@@ -6,18 +6,19 @@ import java.awt.image.*;
 import javax.swing.*;
 import java.io.*;
 import javax.imageio.*;
+import javax.swing.border.*;
 
 /**
  *
  * @author jariv
  */
 public class Launch extends JPanel implements ActionListener {
-
+    
     JLabel picture;
-
+    
     Launch() {
         super(new BorderLayout());
-
+        
         String[] missileStrings = {"Bird", "Cat", "Dog", "Rabbit", "Pig"};
 
         //Create the combo box
@@ -26,7 +27,11 @@ public class Launch extends JPanel implements ActionListener {
         missileList.addActionListener(this);
         
         JButton fire = new JButton();
-
+        fire.setText("FIRE");
+        fire.setBackground(Color.red);
+        fire.setForeground(Color.white);
+        fire.setFont(new Font("Serif",Font.BOLD,24));
+        //fire.setBorder(new LineBoarder());
         //Set up the picture.
         picture = new JLabel();
         picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
@@ -40,12 +45,12 @@ public class Launch extends JPanel implements ActionListener {
         } catch (Exception e) {
         }
         picture.setIcon(new ImageIcon(image));
-
+        
         picture.setPreferredSize(new Dimension(1544, 777 + 10));
-
+        
         add(missileList, BorderLayout.PAGE_START);
         add(picture, BorderLayout.CENTER);
-        add(fire,BorderLayout.PAGE_END);
+        add(fire, BorderLayout.PAGE_END);
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
     }
 
@@ -79,7 +84,7 @@ public class Launch extends JPanel implements ActionListener {
         frame.pack();
         frame.setVisible(true);
     }
-
+    
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
